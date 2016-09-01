@@ -9,7 +9,6 @@ export default async function pipeline (event) {
     if (!element) {
         return null;
     }
-    const userId = element.userId;
-    await map(element.id, notificationId => setNotificationReaded(userId, notificationId));
+    await map(element.id, setNotificationReaded);
     return null;
 }

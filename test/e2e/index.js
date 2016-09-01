@@ -40,43 +40,44 @@ describe("On notification event", () => {
     });
 
     it("set the readed flag of notification in payload as true", async () => {
-        await notificationsCollection.insert({_id: "notification1-user"});
-        await notificationsCollection.insert({_id: "notification2-user"});
-        await notificationsCollection.insert({_id: "notification3-user"});
+        await notificationsCollection.insert({_id: "notification1", title: "title"});
+        await notificationsCollection.insert({_id: "notification2"});
+        await notificationsCollection.insert({_id: "notification3"});
         await run(handler, event);
 
-        const notification1 = await notificationsCollection.findOne({_id: "notification1-user"});
+        const notification1 = await notificationsCollection.findOne({_id: "notification1"});
         expect(notification1).to.deep.equal({
-            _id: "notification1-user",
-            readed: true
+            _id: "notification1",
+            readed: true,
+            title: "title"
         });
-        const notification2 = await notificationsCollection.findOne({_id: "notification2-user"});
+        const notification2 = await notificationsCollection.findOne({_id: "notification2"});
         expect(notification2).to.deep.equal({
-            _id: "notification2-user",
+            _id: "notification2",
             readed: true
         });
-        const notification3 = await notificationsCollection.findOne({_id: "notification3-user"});
+        const notification3 = await notificationsCollection.findOne({_id: "notification3"});
         expect(notification3).to.deep.equal({
-            _id: "notification3-user",
+            _id: "notification3",
             readed: true
         });
     });
 
     it("set the readed flag of notification in payload as true only if notification exist", async () => {
-        await notificationsCollection.insert({_id: "notification1-user"});
-        await notificationsCollection.insert({_id: "notification3-user"});
+        await notificationsCollection.insert({_id: "notification1"});
+        await notificationsCollection.insert({_id: "notification3"});
         await run(handler, event);
 
-        const notification1 = await notificationsCollection.findOne({_id: "notification1-user"});
+        const notification1 = await notificationsCollection.findOne({_id: "notification1"});
         expect(notification1).to.deep.equal({
-            _id: "notification1-user",
+            _id: "notification1",
             readed: true
         });
-        const notification2 = await notificationsCollection.findOne({_id: "notification2-user"});
+        const notification2 = await notificationsCollection.findOne({_id: "notification2"});
         expect(notification2).to.deep.equal(null);
-        const notification3 = await notificationsCollection.findOne({_id: "notification3-user"});
+        const notification3 = await notificationsCollection.findOne({_id: "notification3"});
         expect(notification3).to.deep.equal({
-            _id: "notification3-user",
+            _id: "notification3",
             readed: true
         });
     });
