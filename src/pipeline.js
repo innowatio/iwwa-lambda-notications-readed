@@ -9,6 +9,6 @@ export default async function pipeline (event) {
     if (!element) {
         return null;
     }
-    await map(element.id, setNotificationReaded);
+    await map(element.notificationsIds, setNotificationReaded);
     return null;
 }

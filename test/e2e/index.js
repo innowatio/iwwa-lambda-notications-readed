@@ -7,8 +7,7 @@ import {run, getEventFromObject} from "../mocks";
 describe("On notification event", () => {
 
     const notificationReadedElement = {
-        id: ["notification1", "notification2", "notification3"],
-        userId: "user"
+        notificationsIds: ["notification1", "notification2", "notification3"]
     };
 
     const event = getEventFromObject({
