@@ -2,7 +2,11 @@ import {MongoClient} from "mongodb";
 
 import {MONGODB_URL} from "../config";
 
-export const mongodb = MongoClient.connect(MONGODB_URL);
+export const mongodb = MongoClient.connect(MONGODB_URL, {
+    options: {
+        replSet: {socketOptions: {keepAlive: 1, connectTimeoutMS: 30000}}
+    }
+});
 
 export const upsert = async function upsert (collectionName, element, id) {
     const db = await mongodb;
