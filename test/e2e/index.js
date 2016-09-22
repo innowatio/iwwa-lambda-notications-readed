@@ -1,7 +1,7 @@
 import {expect} from "chai";
 
 import {handler} from "index";
-import {mongodb} from "services/mongodb";
+import {getMongoClient} from "services/mongodb";
 import {run, getEventFromObject} from "../mocks";
 
 describe("On notification event", () => {
@@ -24,7 +24,7 @@ describe("On notification event", () => {
     var notificationsCollection;
 
     before(async () => {
-        db = await mongodb;
+        db = await getMongoClient();
         await db.createCollection("notifications");
         notificationsCollection = db.collection("notifications");
     });
